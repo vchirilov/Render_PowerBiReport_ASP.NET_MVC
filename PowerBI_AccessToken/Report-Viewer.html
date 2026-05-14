@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <div id="reportContainer" style="height:800px"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client/dist/powerbi.js"></script>
+    <script>
+  var models = window['powerbi-client'].models;
+
+  var config = {
+    type: 'report',
+    tokenType: models.TokenType.Embed,
+      accessToken: 'H4sIAAAAAAAEACWTt66EVgBE_-W1WCIvrCUXhAUuOaeOnGHJwfK_-1nupxjNmfP3j5nc_ZTkP3_-pJKgyJpX-64pgRHzdHAadqa7RsMynwmSrE3X89ODqSuXVYynzpE7gK6Ue2DI5nCBnIy0NhNIaZ5LI-19zrlK6LQzMX845ETXXg9djsdotHNLAtULBcLdciaowkVD2ZG08WRWBOPOBjnZCWlCmvdXGYzDNNgMR24XPeWuq4cYMyG3SGRqBDOl8PQlAviAlaFAm9yFWIlB-tyjSK6vRFxbFKn8EKREw8J50QztDdg95_QF7x0-f2-Cw3QrMXGVvpKWAFx2jZr1a40s2IA2B5LKGcaSfPfP3k6VUO6SHQvzbHfdTbNt52iJnWMY8YatZKGKUv8QdXvPo6tefnsrvm69fGKdq7ekGgpnI7I2WqknHVgMgBR-R3eFEizFZOfFX9bj1O3rsDdwHA3sqQ8liUOtWOJIaJScrsUutBTsc-mIjgsZDildk8B0XvNpIOt7Befa4vVDExwY7UtRugaTa6ao5pNvXpGl3tH3RtamUReu7oFMKV5Px3JLxpgNp4Nwgcrt7_xdke8FuREs1vwlyDMjGkj_ofKAJ_onvwhKEQJaKL-7dgsZwU-8Tn-at2JTq2nGQkyj73H-omhAXgaCQAPu0jPF4QiKa5Zl3XWyX_xgw9WGr6JkT1o0WHXzCiHZNi9PzD570q8t1pqY_zzPN4e-RRjB4z6-yGi5p7Ba9vvjJa1vDMFLX8Ys4vwF0nfPYBEfvG9saix_7OQMdz8tG7amC1wCzaaOlw5CVpG6OmUFLbTBSfctGtk02dHA4zZyVlLDigIih3-7DJ2AlBq_9hikeKsa2intZOoTD5ukT4Nk2AivupwQ1YW8BpzpEZAliOJdmokazzB8RlkhB1Hf-w19Jdlx_vXXzx8_3HJ_t0kp7l_NqldJHZeMDUdohtETvrno6L51GYOUuilqGOFXLssTWnRoj-TZlD7Nh504zOFvaGw9u4Gq-xopb-DQ9mC5PCWtbN8hIr5xG-zUMH94115YZHMi41qVRWDFo-lB-rG9JgSuayoRgUpuu7TfXCuDs5cx0esPTqyLct1ZvinZNGSYGidIAHWjP95hvyhF1ffJSVviVUhw0fN9d4T5wEOV6skb7Qr0o0CP4piE4ClKxsWoIyXPPKnclF2GwVFkUVJM6Atdjx7UqfUYroor7HVvaizAErOlofCglaLXS5hijpamGNyU9e5dDN5UrRwmWs8Bk33ZMVXZN9d6xKNGDBGNmQALecb8P_P9rYsF-L8rbwGgAiCu5DkG0mGiA48c3v8wnKYak21fit-YcgjZr7e949VsMBZMlnPvuAmhmbtk7RVtDsd5bJnMBj2qiuLYe_77WjgwD0TqIH3cKoyEvgYuVsFaQxPLQc6p18xIIGW543VVDiXyrSKqXrG40V--tUI4XkMVIzRO-T5puuyzpfPL65pg35u1rGNR8eAQyHjlbkEGXzYZJtYO6SBseMQgR89lGvkwy601ZMvBLS_xdAOKUmYQ77ASBzQJj1BSSWy2o0VWXMtr8NaDGlMe2BB0IB4sn-Ab9FubqXZR27m9Pha95BSxf1KTIBwjV7RdJOdK4F_kNFLvwHw68SALXBAfrOI36lhw_uJLK3WAQncD7IwwDalwQG3AR9y5ws7_YPzzL43pF4taBgAA.eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLU5PUlRILUVVUk9QRS1QLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJleHAiOjE3Nzg1OTg5NTUsImFsbG93QWNjZXNzT3ZlclB1YmxpY0ludGVybmV0Ijp0cnVlfQ==',
+      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=4ade58c5-6995-4cad-9b01-c36c396e25f4&groupId=69fc403b-5ed9-46f4-991d-b36551c92492&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLU5PUlRILUVVUk9QRS1QLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7InVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlfX0%3d',
+      id: '4ade58c5-6995-4cad-9b01-c36c396e25f4',
+    settings: {
+      filterPaneEnabled: false,
+      navContentPaneEnabled: true
+    }
+  };
+
+  var reportContainer = document.getElementById('reportContainer');
+  powerbi.embed(reportContainer, config);
+    </script>
+
+</body>
+</html>

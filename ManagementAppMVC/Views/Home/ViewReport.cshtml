@@ -1,0 +1,87 @@
+﻿@model ManagementAppMVC.Models.EmbedInfoViewModel
+
+@{
+    ViewData["Title"] = "View Report";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null)
+{
+    <div class="card p-3">
+        <div class="mb-3">
+            <label for="embedToken" class="form-label"><strong>Embed Token</strong></label>
+            <textarea id="embedToken" class="form-control small bg-light" rows="8" readonly spellcheck="false">@Model.EmbedToken</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="embedUrl" class="form-label"><strong>Embed Url</strong></label>
+            <textarea id="embedUrl" class="form-control" rows="3" readonly>@Model.EmbedUrl</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="reportId" class="form-label"><strong>Report Id</strong></label>
+            <textarea id="reportId" class="form-control" rows="1" readonly>@Model.ReportId</textarea>
+        </div>
+    </div>
+
+    <div id="reportContainer" style="height:1200px"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client/dist/powerbi.js"></script>
+
+    <script>
+        (function () {
+            var models = window['powerbi-client'].models;
+
+            var config = {
+                type: 'report',
+                tokenType: models.TokenType.Embed,
+                accessToken: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.EmbedToken ?? string.Empty)),
+                embedUrl: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.EmbedUrl ?? string.Empty)),
+                id: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReportId ?? string.Empty)),
+                settings: {
+                    filterPaneEnabled: false,
+                    navContentPaneEnabled: true
+                }
+            };
+
+            var reportContainer = document.getElementById('reportContainer');
+
+            var report = powerbi.embed(reportContainer, config);
+
+            // Build values array from server-side Model.Country (empty array if not provided)
+            var values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                string.IsNullOrWhiteSpace(Model.Country) ? new string[] { } : new[] { Model.Country }
+            ));
+
+            // Apply filter after report loads
+            report.on('loaded', async function () {
+                if (!values || values.length === 0) {
+                    console.log("No country provided in Model.Country; skipping filter.");
+                    return;
+                }
+
+                const filter = {
+                    $schema: "http://powerbi.com/product/schema#basic",
+                    target: {
+                        table: "sales",
+                        column: "CountryRegionName"
+                    },
+                    operator: "In",
+                    values: values
+                };
+
+                try {
+                    await report.setFilters([filter]);
+                    console.log("Filter applied for:", values);
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        })();
+    </script>
+}
+else
+{
+    <p>No embed information available.</p>
+}

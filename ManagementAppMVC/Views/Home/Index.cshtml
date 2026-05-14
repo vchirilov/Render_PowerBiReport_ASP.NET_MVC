@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome to Management Application</h1>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="ViewReport" asp-controller="Home" method="get">
+                <div class="mb-3">
+                    <label for="citySelect" class="form-label">Select a Country Region Name</label>
+                    <select class="form-select" id="countryId" name="country" required>
+                        <option value="">-- Choose a  Country Region Name--</option>
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">View Report</button>
+            </form>
+        </div>
+    </div>
+</div>

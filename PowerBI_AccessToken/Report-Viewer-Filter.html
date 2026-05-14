@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Power BI Embedded</title>
+</head>
+<body>
+
+    <div id="reportContainer" style="height:800px"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client/dist/powerbi.js"></script>
+
+    <script>
+
+        var models = window['powerbi-client'].models;
+
+        var config = {
+            type: 'report',
+            tokenType: models.TokenType.Embed,
+            accessToken: ' H4sIAAAAAAAEACWUta7sBgBE_-W2jmSmSK8w85rX0JmZ2VH-PVdKP82cgX9-rOTppyT_-ftnzxeJjLtp7oJNFz1T3286Zs9CQnUge7Ud2HrhCL5NZE8fMBgIPqiTnjznPudw1In328dub_WJvth58-mUGoX0TOZTT_I98zAwT7rlveYBCWedlhx4OjaC9W6rENDCOM8VTSc0Twz3XBBXN-U6ufbDsdEJ98tR_WCpQcYwefTMWObRKNIGWVgrqUJ-24fNFEs6EUF6IhWZjr1Z_PQ474sx3Zpx2V1vVej6hjEIhZjuLOPyqbZpGnhFZc5purTNRQAPymc6W65GTa15a7Gz-aZuSsEZ4Z3ZOwl-t3tKqxoVvaMuxlEDHlhxs-F4XXOqAqQRXOknWiJr8g2cTcPMhwiVCRJeCuJhMw_Er1Lc7fejdnOBCtYosk2XEEzrPcKNfRlJiBdyg0FII0fjYsnm3rT0MgL7xPq4xiuNOmiJPa0rFo3ZhB7yyQfVXxPPmw_Cr-Dd_3VKGc8kbfh4Mv4HdY_VLLN5hKLDuPstxAP8EyHBXcaJhImq4qkVPLrrt9FPZDCk4y5Vvmu3YAV0XpkPcfK8YS3KEKsxITKf3FPovio4uWxquiyX401H-6NaO922ujm4iZ-yK7EKNqqumO-EopfNKZ1Q9-KBhgNygNW5FqQn3szbqCVCa-KHOs51zVYs0CiLx6aOWz9AJ9xJdQDece-Rsm6X60Vp86jqm6yr7it6QIsId3YbciWNo6MLbMQqsB3fatLXFJiNTxTizrb6LxYjRxLBroQ32XmAs-By42F9bAxA83rwrLaTnu1tK0nicM7nItAyM3P9gmUJZtL72xLy4AP7aoBQjesA_bzz1egc5hDqWflDw3st5Vgp3RqPBYQZ3SeLAGSUbckKBUAZ6XtB8jr29efPz18_3PrM-6QVz-_Miiplyq03zyK0Vuw-_QOpv8JZPSla3EOuBPtDZWwli9VHGAuzLnOpWqz4gwIOafSZfbMbS8abeQskqTvV4upA_e7CJp16l3gi-kGZB26fg_bTONJOoLUIdw4TSQIUlDlvgl5gqFjOM1_s8ZzkYwc-LMEtUUTa81QaDwaIGT0_U6HKFslJAgRh-0o5CAHbC6ZxkiFmVXvmScAMctVoGK9TbNfjRTGPqJskucKyss7R0TQbaTNxi-naCG5soKFW7-v6Vr7wJHU5OPxsVDc3EaIp3AADKLJnjTkB3yJmXZ2F7VutQtFCy84tcY7wyrhzsc5xrKZl-DQ6JA8ZvcXgeEcWfK36H_Mz18WqfH8pu8Wb1M7JtLHOUbbOtRU_qf-H4TbVmOzHWvzKGljkfCVgMMUvGYzBbb__5DBKhQpAgjhZcPp6ybP_2CS8gGMptlZBTgcM7nYaVX1vUrCfhcX3U8FosYEbAL0X6P6enMTZiHgfNF06EY0KRYWKOygKiqMFQ3V9GUydzQlrUm-uTPntlQwZCOOWjITzycgFuRxMObt_l1JRt-mWWGsntk56X5BNyoKfbqq_LPxpkS2TFXDDBgL4JAN2JNvAOhfNuWIeedaUnRWtul1voSQqXKGrY88aPPKg3tWRMIyMbL4hRHX0e-EzTbq8NUv3tKRK6ALQZjBpmEFojN_SGgHpEr-Iwa_twS8RWRmk1m67mG3Cs2tGbQrMOzVkvQWicfX2L-Z__wP5XT4XWgYAAA==.eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLU5PUlRILUVVUk9QRS1QLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJleHAiOjE3Nzg2ODQxNTgsImFsbG93QWNjZXNzT3ZlclB1YmxpY0ludGVybmV0Ijp0cnVlfQ==',
+            embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=4ade58c5-6995-4cad-9b01-c36c396e25f4&groupId=69fc403b-5ed9-46f4-991d-b36551c92492&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLU5PUlRILUVVUk9QRS1QLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7InVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlfX0%3d',
+            id: '4ade58c5-6995-4cad-9b01-c36c396e25f4',
+            settings: {
+                filterPaneEnabled: false,
+                navContentPaneEnabled: true
+            }
+        };
+
+        var reportContainer =
+            document.getElementById('reportContainer');
+
+        var report =
+            powerbi.embed(reportContainer, config);
+
+        // Apply filter after report loads
+        report.on("loaded", async function () {
+
+            const filter = {
+                $schema: "http://powerbi.com/product/schema#basic",
+
+                target: {
+                    table: "sales",
+                    column: "CountryRegionName"
+                },
+
+                operator: "In",
+
+                values: ['Canada', 'France']
+            };
+
+            try {
+
+                await report.setFilters([filter]);
+
+                console.log("Filter applied successfully");
+
+            } catch (error) {
+
+                console.error(error);
+            }
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBI_AccessToken", "PowerBI_AccessToken\PowerBI_AccessToken.csproj", "{C24CDF8F-D5C1-4C0B-B832-FDF41AF01DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementAppMVC", "ManagementAppMVC\ManagementAppMVC.csproj", "{A3136114-E2A0-4892-B4ED-DB2DC8A4EC20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C24CDF8F-D5C1-4C0B-B832-FDF41AF01DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24CDF8F-D5C1-4C0B-B832-FDF41AF01DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24CDF8F-D5C1-4C0B-B832-FDF41AF01DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24CDF8F-D5C1-4C0B-B832-FDF41AF01DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3136114-E2A0-4892-B4ED-DB2DC8A4EC20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3136114-E2A0-4892-B4ED-DB2DC8A4EC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3136114-E2A0-4892-B4ED-DB2DC8A4EC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3136114-E2A0-4892-B4ED-DB2DC8A4EC20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53DD96E8-C02F-42E7-A142-DACE8DD4BA86}
+	EndGlobalSection
+EndGlobal
