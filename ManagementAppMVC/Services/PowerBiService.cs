@@ -1,4 +1,5 @@
 ﻿using ManagementAppMVC.Controllers;
+using ManagementAppMVC.Services;
 using Microsoft.PowerBI.Api;
 using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
