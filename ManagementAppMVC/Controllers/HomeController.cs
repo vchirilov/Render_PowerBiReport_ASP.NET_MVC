@@ -33,7 +33,7 @@ namespace ManagementAppMVC.Controllers
                 authResult,
                 username: "veaceslav.chirilov@amdaris.com",
                 "CompanyRLS",
-                "C003"
+                "ebee4e9f-6091-44cb-9729-5d407ecbdc31"
             );
 
             var country = Request.Query.ContainsKey("country") ? Request.Query["country"].ToString() : string.Empty;
