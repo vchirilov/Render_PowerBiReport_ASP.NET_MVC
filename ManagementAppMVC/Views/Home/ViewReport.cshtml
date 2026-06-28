@@ -48,36 +48,6 @@
             var reportContainer = document.getElementById('reportContainer');
 
             var report = powerbi.embed(reportContainer, config);
-
-            // Build values array from server-side Model.Country (empty array if not provided)
-            var values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
-                string.IsNullOrWhiteSpace(Model.Country) ? new string[] { } : new[] { Model.Country }
-            ));
-
-            // Apply filter after report loads
-            report.on('loaded', async function () {
-                if (!values || values.length === 0) {
-                    console.log("No country provided in Model.Country; skipping filter.");
-                    return;
-                }
-
-                const filter = {
-                    $schema: "http://powerbi.com/product/schema#basic",
-                    target: {
-                        table: "companies",
-                        column: "company_id"
-                    },
-                    operator: "In",
-                    values: values
-                };
-
-                try {
-                    await report.setFilters([filter]);
-                    console.log("Filter applied for:", values);
-                } catch (error) {
-                    console.error(error);
-                }
-            });
         })();
     </script>
 }

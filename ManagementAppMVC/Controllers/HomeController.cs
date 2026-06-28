@@ -1,4 +1,5 @@
-﻿using ManagementAppMVC.Models;
+﻿using Azure.Core;
+using ManagementAppMVC.Models;
 using ManagementAppMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -23,16 +24,49 @@ namespace ManagementAppMVC.Controllers
             return View();
         }
 
+        //public async Task<IActionResult> ViewReport()
+        //{
+        //    var authResult = await _authService.GetAccessTokenAsync();
+
+        //    var embededInfo = await _powerBiService.GetEmbedInfoAsync(authResult);
+
+
+        //    var country = Request.Query.ContainsKey("country") ? Request.Query["country"].ToString() : string.Empty;
+
+        //    var model = new EmbedInfoViewModel
+        //    {
+        //        EmbedToken = embededInfo.EmbedToken,
+        //        EmbedUrl = embededInfo.EmbedUrl,
+        //        ReportId = embededInfo.reportId,
+        //        Country = country
+        //    };
+
+        //    return View(model);
+        //}
+
         public async Task<IActionResult> ViewReport()
         {
             var authResult = await _authService.GetAccessTokenAsync();
 
-            var embededInfo = await _powerBiService.GetEmbedInfoAsync(authResult);
+            //var filters = new Dictionary<string, string>
+            //{
+            //    { "Country", "Canada" },
+            //    { "Region", "North America" }
+            //};
 
-            //_logger.LogInformation($"Embeded Token: {embededInfo.EmbedToken}");
-            //_logger.LogInformation($"Embeded Url: {embededInfo.EmbedUrl}");
 
-            // Extract 'country' from query string (empty string if not present)
+            var filters = new Dictionary<string, string>
+            {
+                { "company_id", "C005" }
+            };
+
+
+            var embededInfo = await _powerBiService.GetEmbedInfoWithFiltersAsync(
+                authResult,
+                username: "veaceslav.chirilov@amdaris.com",
+                rlsFilters: filters
+            );
+
             var country = Request.Query.ContainsKey("country") ? Request.Query["country"].ToString() : string.Empty;
 
             var model = new EmbedInfoViewModel
@@ -53,3 +87,5 @@ namespace ManagementAppMVC.Controllers
         }
     }
 }
+
+
