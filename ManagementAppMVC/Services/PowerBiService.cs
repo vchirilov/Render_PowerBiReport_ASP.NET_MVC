@@ -16,15 +16,11 @@ namespace ManagementAppMVC.Services
             _config = config;
         }
 
-        public async Task<(string EmbedToken, string EmbedUrl, string reportId)> GetEmbedInfoAsync(string accessToken)
-        {
-            return await GetEmbedInfoWithFiltersAsync(accessToken, null, null);
-        }
-
-        public async Task<(string EmbedToken, string EmbedUrl, string reportId)> GetEmbedInfoWithFiltersAsync(
+        public async Task<(string EmbedToken, string EmbedUrl, string reportId)> GetEmbedInfo(
             string accessToken,
             string username,
-            Dictionary<string, string> rlsFilters)
+            string managed_role, 
+            string custom_data)
         {
             var groupIdStr = _config["PowerBI:WorkspaceId"];
             var reportIdStr = _config["PowerBI:ReportId"];
@@ -58,68 +54,32 @@ namespace ManagementAppMVC.Services
             var report = await client.Reports.GetReportInGroupAsync(groupId, reportId);
             var datasetId = report.Value.DatasetId;
 
-            // Generate embed token with optional RLS
+            // Generate embed token with RLS applied if username is provided
             var request = new GenerateTokenRequestV2();
             request.Reports.Add(new GenerateTokenRequestV2Report(reportId));
             request.Datasets.Add(new GenerateTokenRequestV2Dataset(datasetId));
 
             // Apply Row-Level Security if filters are provided
-            if (!string.IsNullOrWhiteSpace(username) && rlsFilters?.Count > 0)
-            {
-                // BuildRlsFilters can remain for logging; actual table-level filter objects require building EffectiveIdentity table filters.
-                var rlsList = BuildRlsFilters(rlsFilters);
-
+            if (!string.IsNullOrWhiteSpace(username))
+            {                
                 var effectiveIdentity = new EffectiveIdentity
                 {
                     Username = username,
-                    CustomData = "C001"
+                    CustomData = custom_data
                 };
 
-                // IMPORTANT: associate the effective identity with the dataset(s) being accessed
                 effectiveIdentity.Datasets.Add(datasetId);
 
                 // Add role(s) that exist in the dataset RLS definition
-                effectiveIdentity.Roles.Add("CompanyRLS");
-
+                effectiveIdentity.Roles.Add(managed_role);
                 request.Identities.Add(effectiveIdentity);
 
-                _logger.LogInformation($"RLS Applied for user: {username} with {rlsList.Count} filters (dataset: {datasetId})");
+                _logger.LogInformation($"RLS Applied for user: {username} (dataset: {datasetId})");
             }
 
             var tokenResponse = await client.EmbedToken.GenerateTokenAsync(request);
 
             return (tokenResponse.Value.Token, report.Value.EmbedUrl, reportIdStr);
-        }
-
-        /// <summary>
-        /// Builds RLS filter strings from dictionary of table/column pairs and their values.
-        /// Example: { "Sales", "Country" } = "Value" becomes '[Sales].[Country] = "Value"'
-        /// </summary>
-        private List<string> BuildRlsFilters(Dictionary<string, string> filters)
-        {
-            var rlsList = new List<string>();
-
-            foreach (var filter in filters)
-            {
-                // Format: [Table].[Column] = 'Value'
-                var rlsFilter = $"'{filter.Key}' = '{EscapeRlsValue(filter.Value)}'";
-                rlsList.Add(rlsFilter);
-                _logger.LogInformation($"RLS Filter: {rlsFilter}");
-            }
-
-            return rlsList;
-        }
-
-        /// <summary>
-        /// Escapes single quotes in RLS filter values to prevent injection.
-        /// </summary>
-        private string EscapeRlsValue(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-                return string.Empty;
-
-            // Escape single quotes by doubling them
-            return value.Replace("'", "''");
         }
     }
 }

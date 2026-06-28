@@ -24,47 +24,16 @@ namespace ManagementAppMVC.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> ViewReport()
-        //{
-        //    var authResult = await _authService.GetAccessTokenAsync();
-
-        //    var embededInfo = await _powerBiService.GetEmbedInfoAsync(authResult);
-
-
-        //    var country = Request.Query.ContainsKey("country") ? Request.Query["country"].ToString() : string.Empty;
-
-        //    var model = new EmbedInfoViewModel
-        //    {
-        //        EmbedToken = embededInfo.EmbedToken,
-        //        EmbedUrl = embededInfo.EmbedUrl,
-        //        ReportId = embededInfo.reportId,
-        //        Country = country
-        //    };
-
-        //    return View(model);
-        //}
-
+        
         public async Task<IActionResult> ViewReport()
         {
             var authResult = await _authService.GetAccessTokenAsync();
 
-            //var filters = new Dictionary<string, string>
-            //{
-            //    { "Country", "Canada" },
-            //    { "Region", "North America" }
-            //};
-
-
-            var filters = new Dictionary<string, string>
-            {
-                { "company_id", "C005" }
-            };
-
-
-            var embededInfo = await _powerBiService.GetEmbedInfoWithFiltersAsync(
+            var embededInfo = await _powerBiService.GetEmbedInfo(
                 authResult,
                 username: "veaceslav.chirilov@amdaris.com",
-                rlsFilters: filters
+                "CompanyRLS",
+                "C003"
             );
 
             var country = Request.Query.ContainsKey("country") ? Request.Query["country"].ToString() : string.Empty;
